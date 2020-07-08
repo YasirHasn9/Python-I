@@ -23,10 +23,43 @@ prompted input. Also, the brackets around year are to denote that the argument i
 optional, as this is a common convention in documentation.
 
 This would mean that from the command line you would call `python3 14_cal.py 4 2015` to 
-print out a calendar for April in 2015, but if you omit either the year or both values, 
-it should use today’s date to get the month and year.
+print out a calendar for April in 2015, 
+but if you omit either the year or both values, it 
+should use todays date to get the month and year.
 """
 
 import sys
 import calendar
 from datetime import datetime
+
+# fetch command argument
+num_args = len(sys.argv)
+# user didnt pass in any argument
+if num_args == 1:
+    # get the current month and year
+    # render the cal for that:
+    month = datetime.now().month
+    year = datetime.now().year
+
+    cal = calendar.TextCalendar()
+    cal.prmonth(year, month)
+
+
+# user passed in one argument
+elif num_args == 2:
+    year = datetime.now().year
+    month = int(sys.argv[1])
+    cal = calendar.TextCalendar()
+    cal.prmonth(year, month)
+
+    # user passed in 2 argument
+elif num_args == 3:
+    month = int(sys.argv[1])
+    year = int(sys.argv[2])
+    cal = calendar.TextCalendar()
+    cal.prmonth(year, month)
+
+
+else:
+    print("Usage : 14_cal.py [month] [year]")
+    sys.exit(1)
